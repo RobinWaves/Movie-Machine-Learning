@@ -20,7 +20,7 @@ def index():
 @app.route("/api/movie_dataset")
 def movie_dataset():
   # Read csv in to pandas dataframe
-  results_df = pd.read_csv("resources/movie_dataset.csv")
+  results_df = pd.read_csv("data_cleaning/export/movie_db.csv")
   # Convert results to json (orient = 'records' get an dictonary/object for each row of dataframe)
   results_json = results_df.to_json(orient='records') 
   return results_json
