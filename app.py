@@ -22,7 +22,7 @@ def similarity_scores():
   f.write("var data = ")
   f.write(results)
   f.close()
-  return results
+  return redirect("/")
   # Dataframe with filtered results
   #filtered_similar = similarity.similarity(name_of_movie)
   

@@ -2,29 +2,49 @@ var femaledata = data;
 
 function buildBubble() {
   console.log(femaledata)
+  
 
-  //Get first 20 records
-  const slicedArray = data.slice(0, 20);
-  console.log(slicedArray);
+  // First 20 records - get data needed from json
+  var budget = [];
+  var revenue = [];
+  var similarity = [];
+  var title = [];
+  var genres = [];
+  var director = [];
+  var release = [];
+  var runtime = [];
 
-  // Get data needed from json
-  var budget = slicedArray.map(d => d.budget);
-  var revenue = slicedArray.map(d => d.revenue);
-  var similarity = slicedArray.map(d => d.similarity_score);
-
-  var title = slicedArray.map(d => d.title);
+  for (var i=0; i<20; i++) {
+    budget.push(femaledata[i].budget);
+    revenue.push(femaledata[i].revenue);
+    similarity.push(femaledata[i].similarity_score);
+    title.push(femaledata[i].title);
+    genres.push(femaledata[i].genres);
+    director.push(femaledata[i].director);
+    release.push(femaledata[i].release_date);
+    runtime.push(femaledata[i].runtime);
+  }
+  console.log(similarity)
 
   // Build BUBBLE
+  var Hoverinfo = []
+  for (i=0;i<director.length;i++){
+    p = {"Title":title[i], "Genre": genres[i], "Director":director[i],
+        "Release_Date":release[i],"Run_Time":runtime[i]+" min."}
+    Hoverinfo.push(p)
+  }
   var data = [{
     x: revenue,
     y: budget,
-    text: title,
+    text: Hoverinfo,
     mode: 'markers',
     marker: {
-      size: similarity * 100000,
+      size: similarity * similarity,
       color: revenue,
       //colorscale: "RdBu"
-    }
+    },
+    hovertemplate:
+    "<b>Title:</b> %{text.Title}<br><b>Genre:</b> %{text.Genre}<br><b>Director:</b> %{text.Director}<br><b>Release Date:</b> %{text.Release_Date} <br> <b>Run Time:</b>%{text.Run_Time}<extra></extra>"
   }];
   var layout = {
     title: `Female Lead or Directed Film Recommendations`,
@@ -32,7 +52,7 @@ function buildBubble() {
     xaxis: { title: "Revenue" },
     yaxis: {title: "Budget"}
   };
-    Plotly.newPlot('bubble', data, layout); 
+  Plotly.newPlot('bubble', data, layout); 
 }
 // -------------------------------------------------- //
 // Build Table
