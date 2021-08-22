@@ -1,7 +1,6 @@
 #import psycopg2
-import pandas as pd
-from flask import Flask, render_template, redirect
-import json
+#import pandas as pd
+from flask import Flask, render_template, redirect, request, url_for
 import similarity
 
 # Create an instance of Flask
@@ -13,16 +12,21 @@ def index():
   # Return index template
   return render_template("index.html")
 
-# Route to movie_dataset.csv
-@app.route("/api/similarity_scores")
+# Route to similarity.py and function for ML and filter
+@app.route("/similarity_scores", methods=['POST'])
 def similarity_scores():
-  similar_json = similarity.similarity()
-  return similar_json
-  # Read csv in to pandas dataframe
-  #results_df = pd.read_csv("data_cleaning/export/movie_db.csv")
-  # Convert results to json (orient = 'records' get an dictonary/object for each row of dataframe)
-  #results_json = results_df.to_json(orient='records') 
-  #return results_json
+  name_of_movie = request.form['chosenTitle']
+  filtered_similar = similarity.similarity(name_of_movie)
+  results = filtered_similar.to_json(orient="records")
+  f = open("./static/js/data.js", "w")
+  f.write("var data = ")
+  f.write(results)
+  f.close()
+  return results
+  # Dataframe with filtered results
+  #filtered_similar = similarity.similarity(name_of_movie)
+  
+  #return results
 
 # Route to female focused
 @app.route("/femalefocused")

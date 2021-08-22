@@ -1,3 +1,4 @@
+from app import lowbudget
 import pandas as pd
 #import numpy as np
 
@@ -10,7 +11,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 #from sklearn.svm import SVC 
 #from sklearn import metrics
 
-def similarity():
+def similarity(name_of_movie):
   #import csv
   df = pd.read_csv("./data_cleaning/export/movie_db.csv")
 
@@ -39,7 +40,7 @@ def similarity():
     return features[features.title == title]["index"].values[0]
 
   #find similarity scores for given movie and then enmerate over it.
-  movie_user_likes = "Toy Story 3"
+  movie_user_likes = name_of_movie #"Toy Story 3"
   movie_index = get_index_from_title(movie_user_likes)
   similar_movies = list(enumerate(cosine_sim[movie_index])) 
   similar_movies
@@ -47,21 +48,31 @@ def similarity():
   #Sort the list similar_movies accroding to similarity scores in descending order. Since the most similar movie to a given movie is itself, discard the first elements after sorting movies.
   sorted_similar_movies = sorted(similar_movies, key=lambda x:x[1], reverse=True)[1:]
 
-  my_df = pd.DataFrame(similar_movies, columns=["index", "similarity_score"])
-  my_df.set_index("index", inplace=True)
+  # Create similarity df
+  similarity_df = pd.DataFrame(similar_movies, columns=["index", "similarity_score"])
+  similarity_df.set_index("index", inplace=True)
 
-  similarity_df = df.join(my_df, how='outer')
+  # Merge original dataframe with similarity dataframe
+  #merged_df = pd.merge(similarity_df, df)
+  #merged_df.sort_values(by="similarity_score", ascending=False, inplace=True)
+  joined_df = df.join(similarity_df, how='outer')
 
-  result = similarity_df.to_json(orient="records")
+  # Female-Led
+  # Change "percentage_female_directed" to "percentage_female_led" (once updated csv is pushed)
+  female_led = joined_df.sort_values(by=["percentage_female_directed", "similarity_score"], ascending=False)
+  top_fem = female_led[:20]
+  # International
+  international = joined_df.sort_values(by=["international", "similarity_score"], ascending=False)
+  top_intl = international[:20]
+  # Low-Budget
+  low_budget = joined_df.loc[joined_df["budget_bins"] == "0 to 15m"].copy()
+  low_budget = low_budget.sort_values(by=["similarity_score"], ascending=False)
+  top_lowbudget = low_budget[:20]
   
-  return result
+  frames = [top_fem, top_intl, top_lowbudget]
+  filtered_results = pd.concat(frames)
 
-#run a loop to print first 50 entries from sorted_similar_movies list
-#i=0
-#print("Top 50 Similar movies to "+movie_user_likes+" are:\n")
-#for movie in sorted_similar_movies:
-#    print(get_title_from_index(movie[0]))
-#   i=i+1
-#    if i>49:
-#        break
+  print(filtered_results)
+  print(movie_user_likes)
 
+  return filtered_results

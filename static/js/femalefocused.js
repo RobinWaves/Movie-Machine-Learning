@@ -1,44 +1,38 @@
+var femaledata = data;
+
 function buildBubble() {
-  d3.json("/api/similarity_scores").then((data, err) => {
-    if (err) throw err;
-    console.log(data);
+  console.log(femaledata)
 
-    //Get first 15 records
-    const slicedArray = data.slice(0, 15);
-    console.log(slicedArray);
+  //Get first 20 records
+  const slicedArray = data.slice(0, 20);
+  console.log(slicedArray);
 
-    // Get data needed from json
-    var budget = slicedArray.map(d => d.budget);
-    var revenue = slicedArray.map(d => d.revenue);
-    var similarity = [];
-    for (var i=0; i<slicedArray.length; i++) {
-      var random = Math.random();
-      similarity.push(random);
+  // Get data needed from json
+  var budget = slicedArray.map(d => d.budget);
+  var revenue = slicedArray.map(d => d.revenue);
+  var similarity = slicedArray.map(d => d.similarity_score);
+
+  var title = slicedArray.map(d => d.title);
+
+  // Build BUBBLE
+  var data = [{
+    x: revenue,
+    y: budget,
+    text: title,
+    mode: 'markers',
+    marker: {
+      size: similarity * 100000,
+      color: revenue,
+      //colorscale: "RdBu"
     }
-    console.log(similarity);
-    var title = slicedArray.map(d => d.title);
-    var genres = slicedArray.map(d => d.genres);
-
-    // Build BUBBLE
-    var data = [{
-      x: revenue,
-      y: budget,
-      text: title,
-      mode: 'markers',
-      marker: {
-        size: similarity * 100000000,
-        color: revenue,
-        //colorscale: "RdBu"
-      }
-    }];
-    var layout = {
-      title: `Female Lead or Directed Film Recommendations`,
-      font: { size: 13 },
-      xaxis: { title: "Revenue" },
-      yaxis: {title: "Budget"}
-    };
+  }];
+  var layout = {
+    title: `Female Lead or Directed Film Recommendations`,
+    font: { size: 13 },
+    xaxis: { title: "Revenue" },
+    yaxis: {title: "Budget"}
+  };
     Plotly.newPlot('bubble', data, layout); 
-  });  //close json
 }
 // -------------------------------------------------- //
 // Build Table
@@ -51,7 +45,7 @@ function buildTable() {
     console.log(data);
 
     //Get first 15 records
-    const slicedArray = data.slice(0, 15);
+    const slicedArray = data.slice(0, 10);
     console.log(slicedArray);
 
     var newData = [];
@@ -69,4 +63,4 @@ function buildTable() {
 }   
 //------------------------------------------------------------
 buildBubble();
-buildTable();
+//buildTable();
