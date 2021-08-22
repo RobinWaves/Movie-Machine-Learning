@@ -17,16 +17,8 @@ def index():
 def similarity_scores():
   name_of_movie = request.form['chosenTitle']
   filtered_similar = similarity.similarity(name_of_movie)
-  results = filtered_similar.to_json(orient="records")
-  f = open("./static/js/data.js", "w")
-  f.write("var data = ")
-  f.write(results)
-  f.close()
+  #results = filtered_similar.to_json(orient="records")
   return redirect("/")
-  # Dataframe with filtered results
-  #filtered_similar = similarity.similarity(name_of_movie)
-  
-  #return results
 
 # Route to female focused
 @app.route("/femalefocused")

@@ -60,19 +60,26 @@ def similarity(name_of_movie):
   # Female-Led
   # Change "percentage_female_directed" to "percentage_female_led" (once updated csv is pushed)
   female_led = joined_df.sort_values(by=["percentage_female_directed", "similarity_score"], ascending=False)
-  top_fem = female_led[:20]
+  top_fem = female_led[:20].to_json(orient="records")
+  f = open("./static/data/femaledata.js", "w")
+  f.write("var data = ")
+  f.write(top_fem)
+  f.close()
+
   # International
   international = joined_df.sort_values(by=["international", "similarity_score"], ascending=False)
-  top_intl = international[:20]
+  top_intl = international[:20].to_json(orient="records")
+  f = open("./static/data/intldata.js", "w")
+  f.write("var data = ")
+  f.write(top_intl)
+  f.close()
+
   # Low-Budget
   low_budget = joined_df.loc[joined_df["budget_bins"] == "0 to 15m"].copy()
   low_budget = low_budget.sort_values(by=["similarity_score"], ascending=False)
   top_lowbudget = low_budget[:20]
   
-  frames = [top_fem, top_intl, top_lowbudget]
-  filtered_results = pd.concat(frames)
+  #frames = [top_fem, top_intl, top_lowbudget]
+  #filtered_results = pd.concat(frames)
 
-  print(filtered_results)
-  print(movie_user_likes)
-
-  return filtered_results
+  return female_led
