@@ -77,10 +77,13 @@ li {
 }
 
 .menu input[type=text] {
-  float: right;
+  float: left;
   padding: 6px;
   border: ;
   margin-top:;
-  margin-right: 16px;
   font-size: 17px;
+}
+#submit_button {
+  width:212px;
+  height:41px
 }

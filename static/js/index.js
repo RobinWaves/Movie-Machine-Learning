@@ -33,6 +33,7 @@ var row;
 for (var i=0; i<20; i++) {
   row = tbody.append("tr");
   row.append("td").text(title[i])
+  row.append("td").text(genres[i])
 }
 //object1 = JSON.parse(femaledata);
 
