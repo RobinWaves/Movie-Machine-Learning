@@ -37,25 +37,3 @@ for (var i=0; i<20; i++) {
   row.append("td").text(budget[i]);
   row.append("td").text(revenue[i]);
 }
-//object1 = JSON.parse(nofilterdata);
-
-// var newData = [];
-// object1.forEach(obj => { 
-// newData.push({"title": obj.title, "genres": obj.genres, "director": obj.director, "cast": obj.cast, "release_date": obj.release_date, 
-//             "runtime": obj.runtime, "budget": obj.budget, "revenue": obj.revenue});  
-// });
-// console.log(newData);
-
-// newData.forEach(obj => {
-//   var row = tbody.append("tr");
-//   Object.entries(obj).forEach(([key, value]) => row.append("td").text(value));
-// });  
-
-
-// var newData = [];
-// slicedArray.forEach(obj => { 
-// newData.push({"title": obj.title, "genres": obj.genres, "director": obj.director, "cast": obj.cast, "release_date": obj.release_date, 
-//             "runtime": obj.runtime, "budget": obj.budget, "revenue": obj.revenue});  
-// });
-// console.log(newData);
-
