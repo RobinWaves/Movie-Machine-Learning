@@ -57,6 +57,13 @@ def similarity(name_of_movie):
   #merged_df.sort_values(by="similarity_score", ascending=False, inplace=True)
   joined_df = df.join(similarity_df, how='outer')
 
+  # No filter 
+  nofilter = joined_df[:20].to_json(orient="records")
+  f = open("./static/data/nofilterdata.js", "w")
+  f.write("var data = ")
+  f.write(nofilter)
+  f.close()
+
   # Female-Led
   # Change "percentage_female_directed" to "percentage_female_led" (once updated csv is pushed)
   female_led = joined_df.sort_values(by=["percentage_female_directed", "similarity_score"], ascending=False)

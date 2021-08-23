@@ -1,10 +1,10 @@
-var femaledata = data;
+var nofilterdata = data;
 
 // Build Table
 //Get a reference to the table body
 var tbody = d3.select("tbody");
 
-console.log(femaledata)
+console.log(nofilterdata)
 
 // First 20 records - get data needed from json
 var budget = [];
@@ -17,13 +17,13 @@ var release = [];
 var runtime = [];
 
 for (var i=0; i<20; i++) {
-  title.push(femaledata[i].title);
-  genres.push(femaledata[i].genres);
-  director.push(femaledata[i].director);
-  release.push(femaledata[i].release_date);
-  runtime.push(femaledata[i].runtime);
-  budget.push(femaledata[i].budget);
-  revenue.push(femaledata[i].revenue);
+  title.push(nofilterdata[i].title);
+  genres.push(nofilterdata[i].genres);
+  director.push(nofilterdata[i].director);
+  release.push(nofilterdata[i].release_date);
+  runtime.push(nofilterdata[i].runtime);
+  budget.push(nofilterdata[i].budget);
+  revenue.push(nofilterdata[i].revenue);
 }
 
 var row;
@@ -37,7 +37,7 @@ for (var i=0; i<20; i++) {
   row.append("td").text(budget[i]);
   row.append("td").text(revenue[i]);
 }
-//object1 = JSON.parse(femaledata);
+//object1 = JSON.parse(nofilterdata);
 
 // var newData = [];
 // object1.forEach(obj => { 
