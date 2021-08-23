@@ -16,7 +16,7 @@ def index():
 @app.route("/similarity_scores", methods=['POST'])
 def similarity_scores():
   name_of_movie = request.form['chosenTitle']
-  filtered_similar = similarity.similarity(name_of_movie)
+  similarity.similarity(name_of_movie)
   #results = filtered_similar.to_json(orient="records")
   return redirect("/")
 

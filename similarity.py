@@ -1,6 +1,6 @@
 from app import lowbudget
 import pandas as pd
-#import numpy as np
+import os
 
 #To set up similarity matrix
 from sklearn.feature_extraction.text import CountVectorizer
@@ -56,13 +56,16 @@ def similarity(name_of_movie):
   #merged_df = pd.merge(similarity_df, df)
   #merged_df.sort_values(by="similarity_score", ascending=False, inplace=True)
   joined_df = df.join(similarity_df, how='outer')
-
+  
   try:
-    f = open("./static/data/nofilterdata.js", "r+")
-    f.seek(0)                
-    f.truncate() 
+    os.remove("./static/data/nofilterdata.js")
+    print("nofilterdata.js has been removed")
+    os.remove("./static/data/femaledata.js")
+    print("femaledata.js has been removed")
+    os.remove("./static/data/intldata.js")
+    print("intldata.js has been removed")
   except:
-    print("Something went wrong")
+    print("No data files to remove")
   
   # No filter 
   nofilter = joined_df.sort_values(by="similarity_score", ascending=False)
@@ -92,8 +95,5 @@ def similarity(name_of_movie):
   low_budget = joined_df.loc[joined_df["budget_bins"] == "0 to 15m"].copy()
   low_budget = low_budget.sort_values(by=["similarity_score"], ascending=False)
   top_lowbudget = low_budget[:20]
-  
-  #frames = [top_fem, top_intl, top_lowbudget]
-  #filtered_results = pd.concat(frames)
 
-  return female_led
+  #return female_led
