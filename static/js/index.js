@@ -15,13 +15,11 @@ var genres = [];
 var director = [];
 var release = [];
 var runtime = [];
-var cast = [];
 
 for (var i=0; i<20; i++) {
   title.push(femaledata[i].title);
   genres.push(femaledata[i].genres);
   director.push(femaledata[i].director);
-  cast.push(femaledata[i].cast);
   release.push(femaledata[i].release_date);
   runtime.push(femaledata[i].runtime);
   budget.push(femaledata[i].budget);
@@ -34,6 +32,12 @@ for (var i=0; i<20; i++) {
   row = tbody.append("tr");
   row.append("td").text(title[i])
   row.append("td").text(genres[i])
+  row.append("td").text(director[i])
+  row.append("td").text(cast[i])
+  row.append("td").text(release[i])
+  row.append("td").text(budget[i])
+  row.append("td").text(revenue[i])
+  row.append("td").text(similarity[i])
 }
 //object1 = JSON.parse(femaledata);
 
