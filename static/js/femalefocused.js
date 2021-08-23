@@ -17,7 +17,7 @@ function buildBubble() {
   for (var i=0; i<20; i++) {
     budget.push(femaledata[i].budget);
     revenue.push(femaledata[i].revenue);
-    similarity.push(femaledata[i].similarity_score);
+    similarity.push(Math.pow(femaledata[i].similarity_score*50,2));
     title.push(femaledata[i].title);
     genres.push(femaledata[i].genres);
     director.push(femaledata[i].director);
@@ -39,9 +39,9 @@ function buildBubble() {
     text: Hoverinfo,
     mode: 'markers',
     marker: {
-      size: similarity * similarity,
+      size: similarity,
       color: revenue,
-      //colorscale: "RdBu"
+      colorscale: "RdBu"
     },
     hovertemplate:
     "<b>Title:</b> %{text.Title}<br><b>Genre:</b> %{text.Genre}<br><b>Director:</b> %{text.Director}<br><b>Release Date:</b> %{text.Release_Date} <br> <b>Run Time:</b>%{text.Run_Time}<extra></extra>"
