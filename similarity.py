@@ -58,7 +58,7 @@ def similarity(name_of_movie):
   joined_df = df.join(similarity_df, how='outer')
 
   # No filter 
-  nofilter = joined_df[:20].to_json(orient="records")
+  nofilter = joined_df.iloc[1:21:1].to_json(orient="records")
   f = open("./static/data/nofilterdata.js", "w")
   f.write("var data = ")
   f.write(nofilter)
