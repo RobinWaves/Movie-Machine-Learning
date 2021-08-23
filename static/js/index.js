@@ -24,20 +24,18 @@ for (var i=0; i<20; i++) {
   runtime.push(femaledata[i].runtime);
   budget.push(femaledata[i].budget);
   revenue.push(femaledata[i].revenue);
-  similarity.push(femaledata[i].similarity_score);
 }
 
 var row;
 for (var i=0; i<20; i++) {
   row = tbody.append("tr");
-  row.append("td").text(title[i])
-  row.append("td").text(genres[i])
-  row.append("td").text(director[i])
-  row.append("td").text(cast[i])
-  row.append("td").text(release[i])
-  row.append("td").text(budget[i])
-  row.append("td").text(revenue[i])
-  row.append("td").text(similarity[i])
+  row.append("td").text(title[i]);
+  row.append("td").text(genres[i]);
+  row.append("td").text(director[i]);
+  row.append("td").text(release[i]);
+  row.append("td").text(runtime[i]);
+  row.append("td").text(budget[i]);
+  row.append("td").text(revenue[i]);
 }
 //object1 = JSON.parse(femaledata);
 
