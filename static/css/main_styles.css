@@ -85,7 +85,37 @@ li {
   width:212px;
   height:41px
 }
+.table-container {
+  padding-top: 10px;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+/* Nofilter table */
 .nofiltertable {
-  color: white;
-  padding: 20px;
+  font-family: Spartan;
+  text-align: center;
+  font-size: 14px;
+  background-color: white;
+  border-collapse: collapse;
+  width: 100%;
+}
+/* Adds border and padding to all cells */
+.nofiltertable td, .nofiltertable th {
+  border: 1px solid	#A9A9A9;
+  padding: 2px;
+}
+/* Every other row light gray */
+.nofiltertable tr:nth-child(even) {
+  background-color: 	#F0F0F0;
+}
+/* Table header row */
+.nofiltertable th {
+  text-align: center;
+  background-color: #9ED9CCFF;
+  font-weight: bolder;
+}
+/* Changes when hovered */
+.nofiltertable tr:hover {
+  background-color: #FFE9EC;
+  color: 	#000000;
 }
