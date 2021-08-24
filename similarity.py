@@ -71,6 +71,7 @@ def similarity(name_of_movie):
   nofilter = joined_df.sort_values(by="similarity_score", ascending=False)
   topnofilter = nofilter.iloc[1:21:1].to_json(orient="records")
   f = open("./static/data/nofilterdata.js", "w")
+  f.write("var data = ")
   f.write(topnofilter)
   f.close()
 

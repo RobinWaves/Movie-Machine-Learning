@@ -79,8 +79,6 @@ li {
 .menu input[type=text] {
   float: left;
   padding: 6px;
-  border: ;
-  margin-top:;
   font-size: 17px;
 }
 #submit_button {
@@ -89,4 +87,5 @@ li {
 }
 .nofiltertable {
   color: white;
+  padding: 20px;
 }
