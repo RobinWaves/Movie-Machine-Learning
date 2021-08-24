@@ -11,7 +11,22 @@ app = Flask(__name__)
 def index():
   name = request.cookies.get('search')
   # Return index template
-  return render_template("index.html", name=name)
+  return render_template("index.html", title=name)
+
+# Route to similarity.py and function for ML and filter
+@app.route("/similarity_scores", methods=['POST', 'GET'])
+def similarity_scores():
+  # Get the title
+  if request.method == 'POST':  
+    title = request.form['nm']
+    # Define the name of movie
+    name_of_movie = similarity.similarity(title)
+
+  # Define the response
+  resp = make_response(render_template('index.html', title=title))
+  resp.set_cookie('search', title)
+
+  return resp
 
 # Get cookies
 @app.route('/getcookie')
@@ -19,41 +34,26 @@ def getcookie():
   name = request.cookies.get('search')
   return name
 
-# Set cookies
-@app.route('/setcookie', methods = ['POST', 'GET'])
-def setcookie():
-  if request.method == 'POST':
-    title = request.form['nm']
-  resp = make_response(render_template('index.html'))
-  resp.set_cookie('search', title)
-  return resp
-
-# Route to similarity.py and function for ML and filter
-@app.route("/similarity_scores", methods=['POST'])
-def similarity_scores():
-  #name = request.cookies.get('search')
-  name_of_movie = request.form['chosenTitle']
-  similarity.similarity(name_of_movie)
-  #results = filtered_similar.to_json(orient="records")
-  return redirect("/")
-
 # Route to female focused
 @app.route("/femalefocused")
 def femalefocused():
+  name = request.cookies.get('search')
   # Direct to femalefocused.html
-  return render_template("femalefocused.html")
+  return render_template("femalefocused.html", title=name)
 
 # Route to international
 @app.route("/international")
 def international():
+  name = request.cookies.get('search')
   # Direct to international.html
-  return render_template("international.html")
+  return render_template("international.html", title=name)
 
 # Route to low budget
 @app.route("/lowbudget")
 def lowbudget():
+  name = request.cookies.get('search')
   # Direct to lowbudget.html
-  return render_template("lowbudget.html")
+  return render_template("lowbudget.html", title=name)
 
 if __name__ == "__main__":
   app.run(debug=True)

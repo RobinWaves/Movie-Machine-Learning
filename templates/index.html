@@ -41,19 +41,10 @@
             <a class="nav-link" href="/lowbudget">Low Budget</a>
           </li>
           
-          <!-- ADDED BY JULIA: COOKIE POST -->
-          <!-- <li class="nav-item">
-            <form action = "/setcookie" method = "POST">
-              <div class="row" id="submission-forms">
-                <input type = 'text' name = 'nm' placeholder="    Search Movie"/>
-                <input type = 'submit' value = 'search'/>
-              </div>
-            </form>
-          </li> -->
-          <!-- END OF ADDED CODE -->
+          <!-- GRAB MOVIE TITLE & RUN SIMILARITY.PY  -->
           <form action="{{ url_for('similarity_scores') }}" method="post">
-            <input type="text" placeholder="        Search Movie" name="chosenTitle">
-            <input type="submit" id="submit_button">
+            <input type="text" name = 'nm' placeholder="        Search Movie" name="chosenTitle">
+            <input type="submit" value="search" id="submit_button">
           </form>
 
           <div class="content-area">
@@ -64,8 +55,9 @@
             </div>
           </div>
         </ul>
+        <!-- Get the title of search -->
         <div id="displayTitle">
-          <span>You searched for: </span>
+          <span>You searched for: {{ title }}</span>
         </div>
       </div>
       <div class="row">

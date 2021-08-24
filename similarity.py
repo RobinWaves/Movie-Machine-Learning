@@ -19,18 +19,22 @@ def similarity(name_of_movie):
   df["title"] = df["title"].str.lower()
 
   #set up new dataframe
-  features = df[['index','title','release_date','cast','total_top_5_female_led','total_female_actors','percentage_female_cast','international','original_language','languages','genres','budget','budget_bins','popularity','tagline','keywords','production_companies','production_company_origin_country']]
+  features = df[['index','title','release_date','cast','total_top_5_female_led','total_female_actors','percentage_female_cast','international','original_language','languages','genres','budget','budget_bins','popularity','tagline','keywords','production_companies','production_company_origin_country', 'director', 'overview']]
 
   #create combined_features row for similarity matrix
   def combine_features(row):
-    return row['cast']+" "+row['keywords']+" "+row['genres']+" "+row['tagline']+" "+row['production_companies']+" "+row['production_company_origin_country']
-
+    # return row['cast']+" "+row['keywords']+" "+row['genres']+" "+row['tagline']+" "+row['production_companies']+" "+row['production_company_origin_country']
+    return row['cast']+" "+row['keywords']+" "+row['genres']+" "+row['tagline']+" "+row['production_companies']+" "+row['overview']+" "+row['director']
+  
   for feature in features:
     features = features.fillna('')
     features['combined_features'] = features.apply(combine_features, axis=1)
 
+  # Added stop words
+  stop_words = {'i', 'me', 'my', 'myself', 'we', 'our', 'ours', 'ourselves', 'you', "you're", "you've", "you'll", "you'd", 'your', 'yours', 'yourself', 'yourselves', 'he', 'him', 'his', 'himself', 'she', "she's", 'her', 'hers', 'herself', 'it', "it's", 'its', 'itself', 'they', 'them', 'their', 'theirs', 'themselves', 'what', 'which', 'who', 'whom', 'this', 'that', "that'll", 'these', 'those', 'am', 'is', 'are', 'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had', 'having', 'do', 'does', 'did', 'doing', 'a', 'an', 'the', 'and', 'but', 'if', 'or', 'because', 'as', 'until', 'while', 'of', 'at', 'by', 'for', 'with', 'about', 'against', 'between', 'into', 'through', 'during', 'before', 'after', 'above', 'below', 'to', 'from', 'up', 'down', 'in', 'out', 'on', 'off', 'over', 'under', 'again', 'further', 'then', 'once', 'here', 'there', 'when', 'where', 'why', 'how', 'all', 'any', 'both', 'each', 'few', 'more', 'most', 'other', 'some', 'such', 'no', 'nor', 'not', 'only', 'own', 'same', 'so', 'than', 'too', 'very', 's', 't', 'can', 'will', 'just', 'don', "don't", 'should', "should've", 'now', 'd', 'll', 'm', 'o', 're', 've', 'y', 'ain', 'aren', "aren't", 'couldn', "couldn't", 'didn', "didn't", 'doesn', "doesn't", 'hadn', "hadn't", 'hasn', "hasn't", 'haven', "haven't", 'isn', "isn't", 'ma', 'mightn', "mightn't", 'mustn', "mustn't", 'needn', "needn't", 'shan', "shan't", 'shouldn', "shouldn't", 'wasn', "wasn't", 'weren', "weren't", 'won', "won't", 'wouldn', "wouldn't"}
+  
   #create new CountVectorizer matrix
-  cv = CountVectorizer()
+  cv = CountVectorizer(stop_words=stop_words, analyzer='word', min_df= 10)
   count_matrix = cv.fit_transform(features['combined_features'])
 
   #obtain cosine similarity matrix from the count matrix
@@ -60,7 +64,7 @@ def similarity(name_of_movie):
   #merged_df.sort_values(by="similarity_score", ascending=False, inplace=True)
   joined_df = df.join(similarity_df, how='outer')
   joined_df["title"] = joined_df["title"].str.title()
-  
+
   try:
     os.remove("./static/data/nofilterdata.js")
     print("nofilterdata.js has been removed")
@@ -68,6 +72,8 @@ def similarity(name_of_movie):
     print("femaledata.js has been removed")
     os.remove("./static/data/intldata.js")
     print("intldata.js has been removed")
+    os.remove("./static/data/lowbudgetdata.js")
+    print("lowbudgetdata.js has been removed")
   except:
     print("No data files to remove")
   
@@ -99,6 +105,10 @@ def similarity(name_of_movie):
   # Low-Budget
   low_budget = joined_df.loc[joined_df["budget_bins"] == "0 to 15m"].copy()
   low_budget = low_budget.sort_values(by=["similarity_score"], ascending=False)
-  top_lowbudget = low_budget[:20]
+  top_lowbudget = low_budget[:20].to_json(orient="records")
+  f = open("./static/data/lowbudgetdata.js", "w")
+  f.write("var data = ")
+  f.write(top_lowbudget)
+  f.close()
 
   #return female_led
