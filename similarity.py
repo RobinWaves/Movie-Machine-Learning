@@ -15,8 +15,11 @@ def similarity(name_of_movie):
   #import csv
   df = pd.read_csv("./data_cleaning/export/movie_db.csv")
   
+  # Converts user input and title dataframe column to lowercase
   name_of_movie = name_of_movie.lower()
   df["title"] = df["title"].str.lower()
+
+
 
   #set up new dataframe
   features = df[['index','title','release_date','cast','total_top_5_female_led','total_female_actors','percentage_female_cast','international','original_language','languages','genres','budget','budget_bins','popularity','tagline','keywords','production_companies','production_company_origin_country', 'director', 'overview']]
@@ -41,13 +44,14 @@ def similarity(name_of_movie):
   cosine_sim = cosine_similarity(count_matrix)
 
   #get movie title from movie index and vice-versa
-  def get_title_from_index(index):
+  def get_title_from_index(index): #***** IS THIS USED?????
     return features[features.index == index]["title"].values[0]
+
   def get_index_from_title(title):
     return features[features.title == title]["index"].values[0]
 
   #find similarity scores for given movie and then enmerate over it.
-  movie_user_likes = name_of_movie #"Toy Story 3"
+  movie_user_likes = name_of_movie  # User input
   movie_index = get_index_from_title(movie_user_likes)
   similar_movies = list(enumerate(cosine_sim[movie_index])) 
   similar_movies
@@ -63,6 +67,7 @@ def similarity(name_of_movie):
   #merged_df = pd.merge(similarity_df, df)
   #merged_df.sort_values(by="similarity_score", ascending=False, inplace=True)
   joined_df = df.join(similarity_df, how='outer')
+  # Changes lower case back to first letter capitalized
   joined_df["title"] = joined_df["title"].str.title()
 
   try:
@@ -86,8 +91,7 @@ def similarity(name_of_movie):
   f.close()
 
   # Female-Led
-  # Change "percentage_female_directed" to "percentage_female_led" (once updated csv is pushed)
-  female_led = joined_df.sort_values(by=["percentage_female_directed", "similarity_score"], ascending=False)
+  female_led = joined_df.sort_values(by=["percentage_female_led", "similarity_score"], ascending=False)
   top_fem = female_led[:20].to_json(orient="records")
   f = open("./static/data/femaledata.js", "w")
   f.write("var data = ")
@@ -110,5 +114,3 @@ def similarity(name_of_movie):
   f.write("var data = ")
   f.write(top_lowbudget)
   f.close()
-
-  #return female_led

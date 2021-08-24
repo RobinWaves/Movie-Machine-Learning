@@ -14,13 +14,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/css/main_styles.css') }}">
-
-    <!-- <script language="JavaScript">
-      function showInput() {
-          document.getElementById('display').innerHTML = 
-                      document.getElementById("user_input").value;
-      }
-    </script> -->
   </head>
   
   <body>
@@ -39,8 +32,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/lowbudget">Low Budget</a>
-          </li>
-          
+          </li> 
           <!-- GRAB MOVIE TITLE & RUN SIMILARITY.PY  -->
           <form action="{{ url_for('similarity_scores') }}" method="post">
             <input type="text" name = 'nm' placeholder="        Search Movie" name="chosenTitle">

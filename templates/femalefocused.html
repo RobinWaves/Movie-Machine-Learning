@@ -35,17 +35,23 @@
         <li class="nav-item">
           <a class="nav-link" href="/lowbudget">Low Budget</a>
         </li>
+        <!-- GRAB MOVIE TITLE & RUN SIMILARITY.PY  -->
         <form action="{{ url_for('similarity_scores') }}" method="post">
-          <input type="text" placeholder="        Search Movie" name="chosenTitle">
-          <input type="submit" id="submit_button">
+          <input type="text" name = 'nm' placeholder="        Search Movie" name="chosenTitle">
+          <input type="submit" value="search" id="submit_button">
         </form>
       </ul>
     </div>
+
     <div class="container">
       <div class="row">
         <div class="col-md-12 jumbotron text-center">
           <h1>Female Focused Movie Recommendations</h1>
         </div>
+      </div>
+      <!-- Get the title of search -->
+      <div id="displayTitle">
+        <span>You searched for: {{ title }}</span>
       </div>
       <div class="row">
         <div class="col-md-12">

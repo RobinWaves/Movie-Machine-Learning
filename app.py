@@ -23,6 +23,7 @@ def similarity_scores():
     name_of_movie = similarity.similarity(title)
 
   # Define the response
+  title = title.title()
   resp = make_response(render_template('searched.html', title=title))
   resp.set_cookie('search', title)
 
