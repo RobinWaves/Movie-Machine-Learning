@@ -85,6 +85,14 @@ li {
   width:212px;
   height:41px
 }
+#displayTitle {
+  font-family: Spartan;
+  background-color: rgba(82, 82, 82, 0.781);
+  color: #9ED9CCFF;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bolder;
+}
 .table-container {
   padding-top: 10px;
   padding-left: 40px;

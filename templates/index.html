@@ -41,6 +41,16 @@
             <a class="nav-link" href="/lowbudget">Low Budget</a>
           </li>
           
+          <!-- ADDED BY JULIA: COOKIE POST -->
+          <!-- <li class="nav-item">
+            <form action = "/setcookie" method = "POST">
+              <div class="row" id="submission-forms">
+                <input type = 'text' name = 'nm' placeholder="    Search Movie"/>
+                <input type = 'submit' value = 'search'/>
+              </div>
+            </form>
+          </li> -->
+          <!-- END OF ADDED CODE -->
           <form action="{{ url_for('similarity_scores') }}" method="post">
             <input type="text" placeholder="        Search Movie" name="chosenTitle">
             <input type="submit" id="submit_button">
@@ -55,7 +65,7 @@
           </div>
         </ul>
         <div id="displayTitle">
-          <h2>You searched for: <span id="displayTitle"></span></h2>
+          <span>You searched for: </span>
         </div>
       </div>
       <div class="row">

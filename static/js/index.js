@@ -22,23 +22,23 @@ function init() {
     Object.entries(movie).forEach(([key, value]) => row.append("td").text(value));
   });
 }
-//-----------------------------------------------------------------//
-// This function is called when submit button is clicked ***** This stops the similarity function from running.
-function updateTable() {
+// //-----------------------------------------------------------------//
+// // This function is called when submit button is clicked ***** This stops the similarity function from running.
+// function updateTable() {
 
-  deleteTableBody();
+//   deleteTableBody();
 
-  var newData = [];
-  nofilterdata.forEach(obj => { 
-    newData.push({"title": obj.title, "genres": obj.genres, "director": obj.director, "release_date": obj.release_date, "runtime": obj.runtime, 
-                  "budget": obj.budget, "revenue": obj.revenue});  
-  });
+//   var newData = [];
+//   nofilterdata.forEach(obj => { 
+//     newData.push({"title": obj.title, "genres": obj.genres, "director": obj.director, "release_date": obj.release_date, "runtime": obj.runtime, 
+//                   "budget": obj.budget, "revenue": obj.revenue});  
+//   });
 
-  newData.forEach(movie => {
-    var row = tbody.append("tr");
-    Object.entries(movie).forEach(([key, value]) => row.append("td").text(value));
-  });
-}
+//   newData.forEach(movie => {
+//     var row = tbody.append("tr");
+//     Object.entries(movie).forEach(([key, value]) => row.append("td").text(value));
+//   });
+// }
 //-----------------------------------------------------------------//
 // Clears table body to append new rows
 function deleteTableBody() {

@@ -14,6 +14,9 @@ from sklearn.metrics.pairwise import cosine_similarity
 def similarity(name_of_movie):
   #import csv
   df = pd.read_csv("./data_cleaning/export/movie_db.csv")
+  
+  name_of_movie = name_of_movie.lower()
+  df["title"] = df["title"].str.lower()
 
   #set up new dataframe
   features = df[['index','title','release_date','cast','total_top_5_female_led','total_female_actors','percentage_female_cast','international','original_language','languages','genres','budget','budget_bins','popularity','tagline','keywords','production_companies','production_company_origin_country']]
@@ -56,6 +59,7 @@ def similarity(name_of_movie):
   #merged_df = pd.merge(similarity_df, df)
   #merged_df.sort_values(by="similarity_score", ascending=False, inplace=True)
   joined_df = df.join(similarity_df, how='outer')
+  joined_df["title"] = joined_df["title"].str.title()
   
   try:
     os.remove("./static/data/nofilterdata.js")

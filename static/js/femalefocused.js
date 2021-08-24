@@ -45,33 +45,5 @@ function buildBubble() {
   };
   Plotly.newPlot('bubble', data, layout); 
 }
-// -------------------------------------------------- //
-// Build Table
-//Get a reference to the table body
-var tbody = d3.select("tbody");
-
-function buildTable() {
-  d3.json("/api/similarity_scores").then((data, err) => {
-    if (err) throw err;
-    console.log(data);
-
-    //Get first 15 records
-    const slicedArray = data.slice(0, 10);
-    console.log(slicedArray);
-
-    var newData = [];
-    slicedArray.forEach(obj => { 
-    newData.push({"title": obj.title, "genres": obj.genres, "director": obj.director, "cast": obj.cast, "release_date": obj.release_date, 
-                  "runtime": obj.runtime, "budget": obj.budget, "revenue": obj.revenue});  
-    });
-    console.log(newData);
-
-    newData.forEach(obj => {
-      var row = tbody.append("tr");
-      Object.entries(obj).forEach(([key, value]) => row.append("td").text(value));
-    });  
-  });
-}   
 //------------------------------------------------------------
 buildBubble();
-//buildTable();
