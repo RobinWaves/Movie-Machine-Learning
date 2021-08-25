@@ -11,7 +11,7 @@ app = Flask(__name__)
 def index():
   name = request.cookies.get('search')
   # Return index template
-  time.sleep(5)
+  time.sleep(1)
   return render_template("index.html", title=name)
 
 # Route to similarity.py and function for ML and filter
@@ -41,7 +41,7 @@ def getcookie():
 def femalefocused():
   name = request.cookies.get('search')
   # Direct to femalefocused.html
-  time.sleep(5)
+  time.sleep(1)
   return render_template("femalefocused.html", title=name)
 
 # Route to international
@@ -49,7 +49,7 @@ def femalefocused():
 def international():
   name = request.cookies.get('search')
   # Direct to international.html
-  time.sleep(5)
+  time.sleep(1)
   return render_template("international.html", title=name)
 
 # Route to low budget
@@ -57,7 +57,7 @@ def international():
 def lowbudget():
   name = request.cookies.get('search')
   # Direct to lowbudget.html
-  time.sleep(5)
+  time.sleep(1)
   return render_template("lowbudget.html", title=name)
 
 if __name__ == "__main__":
