@@ -57,7 +57,31 @@ def lowbudget():
   name = request.cookies.get('search')
   # Direct to lowbudget.html
   time.sleep(5)
-  return render_template("lowbudget.html", title=name)
+  return render_template("low_budget.html", title=name)
+
+# Route to main explore page
+@app.route("/explore")
+def explore():
+  # Direct to explore.html
+  return render_template("explore.html")
+
+# Route to main low-budget explore
+@app.route("/explore/low_budget")
+def explore_lowbudget():
+  # Direct to explore.html
+  return render_template("em_low_budget.html")
+
+# Route to popular low-budget explore
+@app.route("/explore/low_budget/popular")
+def explore_pop_lowbudget():
+  # Direct to explore.html
+  return render_template("em_pop_low.html")
+
+# Route to unpopular low-budget explore
+@app.route("/explore/low_budget/unpopular")
+def explore_unpop_lowbudget():
+  # Direct to explore.html
+  return render_template("em_unpop_low.html")
 
 if __name__ == "__main__":
   app.run(debug=True)

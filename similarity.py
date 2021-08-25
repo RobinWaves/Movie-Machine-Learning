@@ -91,7 +91,7 @@ def similarity(name_of_movie):
   f.close()
 
   # Female-Led
-  female_led = joined_df.sort_values(by=["percentage_female_led", "similarity_score"], ascending=False)
+  female_led = joined_df.sort_values(by=["percentage_female_directed", "similarity_score"], ascending=False)
   top_fem = female_led[:20].to_json(orient="records")
   f = open("./static/data/femaledata.js", "w")
   f.write("var data = ")
