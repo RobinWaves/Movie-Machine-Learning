@@ -11,6 +11,7 @@ app = Flask(__name__)
 def index():
   name = request.cookies.get('search')
   # Return index template
+  time.sleep(5)
   return render_template("index.html", title=name)
 
 # Route to similarity.py and function for ML and filter
