@@ -2,7 +2,7 @@
 #import pandas as pd
 from flask import Flask, render_template, redirect, request, url_for, make_response
 import similarity
-
+import time 
 # Create an instance of Flask
 app = Flask(__name__)
 
@@ -40,6 +40,7 @@ def getcookie():
 def femalefocused():
   name = request.cookies.get('search')
   # Direct to femalefocused.html
+  time.sleep(5)
   return render_template("femalefocused.html", title=name)
 
 # Route to international
@@ -47,6 +48,7 @@ def femalefocused():
 def international():
   name = request.cookies.get('search')
   # Direct to international.html
+  time.sleep(5)
   return render_template("international.html", title=name)
 
 # Route to low budget
@@ -54,6 +56,7 @@ def international():
 def lowbudget():
   name = request.cookies.get('search')
   # Direct to lowbudget.html
+  time.sleep(5)
   return render_template("lowbudget.html", title=name)
 
 if __name__ == "__main__":
